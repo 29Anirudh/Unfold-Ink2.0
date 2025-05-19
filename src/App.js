@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import Nav from "./ui/NavBar";
+import Home from "./ui/Home";
+import Politics from "./ui/Politics";
+import Economics from "./ui/Economics";
+import Cultural from "./ui/Cultural";
+import Movies from "./ui/Movies";
+import Cricket from "./ui/Cricket";
+const App=()=> {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <>
+   <div>
+    <Nav/>
+    <Home/>
+    <Politics/>
+    <Movies/>
+    <Cultural/>
+    <Economics/>
+    <Cricket/>
+   </div>
+   </>
   );
 }
 
