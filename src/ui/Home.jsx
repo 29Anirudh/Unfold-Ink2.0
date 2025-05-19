@@ -2,20 +2,15 @@ import React from 'react';
 import NavBar from './NavBar';
 import FeaturedStories from './FeaturedStories';
 
+import React from 'react';
+import NavBar from './NavBar';
+import FeaturedStories from './FeaturedStories';
+
 const Home = () => {
   return (
-    <div>
-      {/* NavBar with bottom margin */}
-      <div className="mb-12">
-        <NavBar />
-      </div>
-
-      {/* Hero Section */}
+    <div className="pt-20" id="Home">
       <div className="flex items-center justify-between px-8 py-20 max-w-[1300px] mx-auto gap-16">
-        
-        {/* Left Text Content */}
         <div className="flex flex-col gap-4 max-w-xl">
-          {/* Search Input */}
           <input
             type="text"
             placeholder="Search titles,authors,topics..."
