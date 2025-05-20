@@ -1,6 +1,4 @@
-import React from 'react';
-import NavBar from './NavBar';
-import FeaturedStories from './FeaturedStories';
+
 
 import React from 'react';
 import NavBar from './NavBar';
