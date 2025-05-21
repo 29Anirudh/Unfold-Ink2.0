@@ -8,8 +8,6 @@ import Cultural from "./ui/Cultural";
 import Movies from "./ui/Movies";
 import Cricket from "./ui/Cricket";
 // import SignInPage from "./ui/sign_in";
-
-function App() {
 import Politics1 from "./assets/Politics1.jpg";
 import Politics2 from "./assets/Politics2.jpg";
 import Politics3 from "./assets/Politics3.jpg";
