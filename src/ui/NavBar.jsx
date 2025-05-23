@@ -1,90 +1,64 @@
 import { Link } from "react-scroll";
-const Nav = () => {
+import { useNavigate } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa";
+
+const NavBar = ({ user }) => {
+  const navigate = useNavigate();
+  console.log(user);
   return (
-    <>
-      <div className="flex bg-white shadow-lg justify-evenly py-3 px-4 items-center fixed z-20 top-0 w-screen">
-        <div className="w-[20%] text-xl font-bold cursor-pointer">
-          {/* Logo */}
-          <div>Unfold Ink</div>
-        </div>
-        <div className="w-[60%]">
-          <ul className="flex justify-evenly text-lg text-gray-600">
-            <li className="cursor-pointer">
+    <div className="flex bg-white shadow-lg justify-evenly py-3 px-4 items-center fixed z-20 top-0 w-screen">
+      {/* Left: Logo */}
+      <div className="w-[20%] text-xl font-bold cursor-pointer">Unfold Ink</div>
+      <div className="w-[60%]">
+        <ul className="flex justify-evenly text-lg text-gray-600">
+          {[
+            "Home",
+            "Politics",
+            "Movies",
+            "Cultural",
+            "Economics",
+            "Cricket",
+          ].map((section) => (
+            <li key={section} className="cursor-pointer">
               <Link
-                to="Home"
+                to={section}
                 smooth={true}
                 duration={500}
                 activeClass="active"
                 spy={true}
+                onClick={()=>navigate('/')}
               >
-                Home
+                {section}
               </Link>
             </li>
-            <li className="cursor-pointer">
-              <Link
-                to="Politics"
-                smooth={true}
-                duration={500}
-                activeClass="active"
-                spy={true}
-              >
-                Politics
-              </Link>
-            </li>
-            <li className="cursor-pointer">
-              <Link
-                to="Movies"
-                smooth={true}
-                duration={500}
-                activeClass="active"
-                spy={true}
-              >
-                Movies
-              </Link>
-            </li>
-            <li className="cursor-pointer">
-              <Link
-                to="Cultural"
-                smooth={true}
-                duration={500}
-                activeClass="active"
-                spy={true}
-              >
-                Cultural
-              </Link>
-            </li>
-            <li className="cursor-pointer">
-              <Link
-                to="Economics"
-                smooth={true}
-                duration={500}
-                activeClass="active"
-                spy={true}
-              >
-                Economics
-              </Link>
-            </li>
-            <li className="cursor-pointer">
-              <Link
-                to="Cricket"
-                smooth={true}
-                duration={500}
-                activeClass="active"
-                spy={true}
-              >
-                Cricket
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="w-[20%] flex justify-evenly text-lg">
-          <button className="bg-violet-500 rounded-full text-white px-4 py-1">
-            Create a Blog
-          </button>
-          <button>User</button>
-        </div>
+          ))}
+        </ul>
       </div>
-    </>
+      <div className="w-[20%] flex justify-evenly text-lg items-center">
+        <button
+          className="bg-violet-500 rounded-full text-white px-4 py-1"
+          onClick={() => navigate("/create")}
+        >
+          Create a Blog
+        </button>
+        {user ? (
+          <div className="" onClick={() => navigate("/profile")}>
+            <img
+              src={user.photo || "profile.png"}
+              alt={user.name}
+              className="h-8 aspect-square rounded-full cursor-pointer hover:scale-105 hover:shadow-md transition-all hover:shadow-black "
+            />
+          </div>
+        ) : (
+          <FaRegUser
+            size={35}
+            className="text-gray-700 hover:text-violet-600 transition cursor-pointer border-2 rounded-full border-black p-1"
+            onClick={() => navigate("/signup")}
+          />
+        )}
+      </div>
+    </div>
   );
 };
-export default Nav;
+
+export default NavBar;
