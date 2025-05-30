@@ -17,6 +17,7 @@ import BlogFullview from "./ui/BlogFullView";
 
 const App = () => {
   const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+  console.log("Backend base URL:", process.env.REACT_APP_BACKEND_BASEURL);
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem("token");
     const userData = localStorage.getItem("user");
