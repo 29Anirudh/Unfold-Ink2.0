@@ -7,6 +7,7 @@ const FeaturedStories = () => {
   useEffect(() => {
     const fetchFeaturedStories = async () => {
       try {
+        console.log("Fetching from:", `${BASE_URL}/api/blogs/featured/random`);
         const response = await fetch(`${BASE_URL}/api/blogs/featured/random`);
         const data = await response.json();
 
