@@ -81,54 +81,57 @@ const CreateBlogPage = () => {
 
   // Submit handler
   const handleSubmit = async (status) => {
-  if (!validate()) return;
+    if (!validate()) return;
 
-  let currentContent = content;
-  if (!previewMode && contentRef.current) {
-    currentContent = contentRef.current.innerHTML.trim();
-  }
-
-  const token = localStorage.getItem("token");
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("category", category);
-  formData.append("tags", tags); // Let backend split if needed
-  formData.append("content", currentContent);
-  formData.append("status", status);
-  if (fileInputRef.current?.files[0]) {
-    formData.append("featuredImage", fileInputRef.current.files[0]);
-  }
-
-  try {
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to submit blog");
+    let currentContent = content;
+    if (!previewMode && contentRef.current) {
+      currentContent = contentRef.current.innerHTML.trim();
     }
 
-    // Reset form
-    setSubmitted(true);
-    setTitle("");
-    setCategory("");
-    setTags("");
-    setContent("");
-    setImage(null);
-    setErrors({});
-    if (fileInputRef.current) fileInputRef.current.value = "";
-    if (contentRef.current) contentRef.current.innerHTML = "";
-    setPreviewMode(false);
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("tags", tags); // Let backend split if needed
+    formData.append("content", currentContent);
+    formData.append("status", status);
+    if (fileInputRef.current?.files[0]) {
+      formData.append("featuredImage", fileInputRef.current.files[0]);
+    }
 
-    setTimeout(() => setSubmitted(false), 3000);
-  } catch (err) {
-    alert(err.message);
-  }
-};
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit blog");
+      }
+
+      // Reset form
+      setSubmitted(true);
+      setTitle("");
+      setCategory("");
+      setTags("");
+      setContent("");
+      setImage(null);
+      setErrors({});
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      if (contentRef.current) contentRef.current.innerHTML = "";
+      setPreviewMode(false);
+
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
   // Sync contentEditable innerHTML only when switching back to edit mode
   useEffect(() => {
     if (!previewMode && contentRef.current) {

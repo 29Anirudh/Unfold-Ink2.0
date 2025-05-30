@@ -15,7 +15,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
     const token = localStorage.getItem("token");
 
     if (user && token) {
-      fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs/mine`, {
+      fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs/mine`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +39,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs/${blogId}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs/${blogId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
       if (photoFile) formData.append("photo", photoFile);
 
       const token = localStorage.getItem("token");
-      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/profile`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/auth/profile`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

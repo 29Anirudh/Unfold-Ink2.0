@@ -33,7 +33,7 @@ const App = () => {
   const [posts, setPosts] = useState([[], [], [], [], []]); // For 5 categories
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs`)
+    fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs`)
       .then((res) => res.json())
       .then((data) => setPosts(data))
       .catch((err) => console.error("Error fetching blogs:", err));
@@ -48,7 +48,7 @@ const App = () => {
           path="/create"
           element={
             <ProtectedRoute user={user}>
-              <CreateBlogPage user={user}/>
+              <CreateBlogPage user={user} />
             </ProtectedRoute>
           }
         />
@@ -58,7 +58,10 @@ const App = () => {
         />
         <Route path="/signin" element={<SignInPage setUser={setUser} />} />
         <Route path="/signup" element={<SignUp setUser={setUser} />} />
-        <Route path="/blog/:postId" element={<BlogFullview allPosts={posts}/>} />
+        <Route
+          path="/blog/:postId"
+          element={<BlogFullview allPosts={posts} />}
+        />
       </Routes>
     </Router>
   );

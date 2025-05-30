@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Left from "./Left";
 import { useNavigate } from "react-router-dom";
 
-const SignInPage = ({setUser}) => {
+const SignInPage = ({ setUser }) => {
   const nav = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -17,11 +17,14 @@ const SignInPage = ({setUser}) => {
     setError(null);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/signin`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASEURL}/api/auth/signin`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await res.json();
 
@@ -50,7 +53,9 @@ const SignInPage = ({setUser}) => {
           className="bg-white p-8 rounded-xl shadow-md max-w-md w-4/5"
         >
           <h2 className="mb-2 text-2xl font-semibold">Welcome Back</h2>
-          <p className="mb-6 text-gray-600">Sign in to continue to Unfold Ink</p>
+          <p className="mb-6 text-gray-600">
+            Sign in to continue to Unfold Ink
+          </p>
 
           {/* Email input */}
           <label htmlFor="email" className="block mb-1 font-medium">
