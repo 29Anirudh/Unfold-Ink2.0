@@ -21,7 +21,7 @@ const CreateBlogPage = () => {
   const [errors, setErrors] = useState({});
   const contentRef = useRef(null);
   const fileInputRef = useRef(null);
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
   // Formatting commands
   const handleFormatting = (command) => {
     document.execCommand(command, false, null);
@@ -101,7 +101,7 @@ const CreateBlogPage = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs`,
+        `${BASE_URL}/api/blogs`,
         {
           method: "POST",
           headers: {

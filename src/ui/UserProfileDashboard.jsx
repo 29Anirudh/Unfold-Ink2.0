@@ -9,13 +9,13 @@ const UserProfileDashboard = ({ user, setUser }) => {
   const [bio, setBio] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
   const nav = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (user && token) {
-      fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs/mine`, {
+      fetch(`${BASE_URL}/api/blogs/mine`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +39,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs/${blogId}`, {
+      const res = await fetch(`${BASE_URL}/api/blogs/${blogId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
       if (photoFile) formData.append("photo", photoFile);
 
       const token = localStorage.getItem("token");
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/auth/profile`, {
+      const res = await fetch(`${BASE_URL}/api/auth/profile`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

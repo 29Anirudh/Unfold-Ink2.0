@@ -16,6 +16,7 @@ import CreateBlogPage from "./ui/CreateBlogPage";
 import BlogFullview from "./ui/BlogFullView";
 
 const App = () => {
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem("token");
     const userData = localStorage.getItem("user");
@@ -31,9 +32,8 @@ const App = () => {
   });
 
   const [posts, setPosts] = useState([[], [], [], [], []]); // For 5 categories
-
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_BASEURL}/api/blogs`)
+    fetch(`${BASE_URL}/api/blogs`)
       .then((res) => res.json())
       .then((data) => setPosts(data))
       .catch((err) => console.error("Error fetching blogs:", err));

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const SignInPage = ({ setUser }) => {
   const nav = useNavigate();
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,7 +18,7 @@ const SignInPage = ({ setUser }) => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_BASEURL}/api/auth/signin`,
+        `${BASE_URL}/api/auth/signin`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
