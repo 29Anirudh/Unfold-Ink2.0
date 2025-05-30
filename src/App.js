@@ -33,7 +33,7 @@ const App = () => {
   const [posts, setPosts] = useState([[], [], [], [], []]); // For 5 categories
 
   useEffect(() => {
-    fetch("/api/blogs")
+    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs`)
       .then((res) => res.json())
       .then((data) => setPosts(data))
       .catch((err) => console.error("Error fetching blogs:", err));

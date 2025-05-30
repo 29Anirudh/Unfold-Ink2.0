@@ -100,7 +100,7 @@ const CreateBlogPage = () => {
   }
 
   try {
-    const response = await fetch("/api/blogs", {
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

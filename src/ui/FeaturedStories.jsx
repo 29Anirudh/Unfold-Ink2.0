@@ -7,7 +7,7 @@ const FeaturedStories = () => {
   useEffect(() => {
     const fetchFeaturedStories = async () => {
       try {
-        const response = await fetch("/api/blogs/featured/random");
+        const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs/featured/random`);
         const data = await response.json();
 
         setStories(data);

@@ -90,7 +90,13 @@ function BlogFullview({ allPosts }) {
           className="prose max-w-none mb-12"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+        <hr/>
+        <div>
+        <h1 className="text-3xl font-semibold">Comments</h1>
+        
+      </div>
       </main>
+      
     </div>
   );
 }

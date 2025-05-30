@@ -17,7 +17,7 @@ const SignInPage = ({setUser}) => {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signin", {
+      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -35,7 +35,6 @@ const SignInPage = ({setUser}) => {
       setUser(data.user);
       nav("/");
     } catch (err) {
-      console.log(err);
       setError("Something went wrong, try again.");
     } finally {
       setLoading(false);

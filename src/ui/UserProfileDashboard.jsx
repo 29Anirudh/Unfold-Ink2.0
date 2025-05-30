@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate,Link } from "react-router-dom";
-const API_BASE = "http://localhost:5000"; // Always use absolute base URL to avoid 404
 
 const UserProfileDashboard = ({ user, setUser }) => {
   const [blogs, setBlogs] = useState([]);
@@ -16,7 +15,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
     const token = localStorage.getItem("token");
 
     if (user && token) {
-      fetch(`${API_BASE}/api/blogs/mine`, {
+      fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs/mine`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +39,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${API_BASE}/api/blogs/${blogId}`, {
+      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/blogs/${blogId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -64,7 +63,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
       if (photoFile) formData.append("photo", photoFile);
 
       const token = localStorage.getItem("token");
-      const res = await fetch(`${API_BASE}/api/auth/profile`, {
+      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/profile`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
