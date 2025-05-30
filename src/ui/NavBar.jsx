@@ -4,7 +4,6 @@ import { FaRegUser } from "react-icons/fa";
 
 const NavBar = ({ user }) => {
   const navigate = useNavigate();
-  console.log(user);
   return (
     <div className="flex bg-white shadow-lg justify-evenly py-3 px-4 items-center fixed z-20 top-0 w-screen">
       {/* Left: Logo */}
@@ -26,7 +25,7 @@ const NavBar = ({ user }) => {
                 duration={500}
                 activeClass="active"
                 spy={true}
-                onClick={()=>navigate('/')}
+                onClick={() => navigate("/")}
               >
                 {section}
               </Link>

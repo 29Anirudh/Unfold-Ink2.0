@@ -1,5 +1,3 @@
-import React from "react";
-import NavBar from "./NavBar";
 import { useParams, Link } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -11,12 +9,9 @@ function BlogFullview({ allPosts }) {
 
   const flattenedPosts = allPosts.flat();
   const post = flattenedPosts.find((p) => p._id === postId);
-  const author = post.author;
-  console.log(allPosts);
   if (!post) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <NavBar />
         <div className="container mx-auto pt-20 text-center">
           <h2 className="text-2xl font-bold mb-4">Blog post not found</h2>
           <p className="text-gray-600">No post found with ID: {postId}</p>
@@ -30,10 +25,9 @@ function BlogFullview({ allPosts }) {
       </div>
     );
   }
-
+  const author = post.author;
   return (
     <div className="min-h-screen bg-gray-50">
-      <NavBar />
       <main className="container mx-auto py-8 pt-20 px-4">
         <header className="mb-8">
           <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">

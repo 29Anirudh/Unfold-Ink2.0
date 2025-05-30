@@ -25,7 +25,7 @@ const Card = ({ post }) => {
             <div className="flex flex-row items-center gap-3">
               <img
                 src={author.photo || "profile.png"}
-                className="rounded-full w-8"
+                className="rounded-full w-8 aspect-square"
               />
               <p>{author.fullName}</p>
             </div>

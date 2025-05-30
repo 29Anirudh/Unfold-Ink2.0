@@ -6,11 +6,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import NavBar from "./ui/NavBar";
 import Home from "./ui/Home";
-import Politics from "./ui/Politics";
-import Economics from "./ui/Economics";
-import Cultural from "./ui/Cultural";
-import Movies from "./ui/Movies";
-import Cricket from "./ui/Cricket";
 import Footer from "./ui/Footer";
 import CreateBlogPage from "./ui/CreateBlogPage";
 import BlogFullview from "./ui/BlogFullView";
@@ -42,8 +37,10 @@ const App = () => {
 
   return (
     <Router>
+      <NavBar user={user} />
       <Routes>
-        <Route path="/" element={<FullHomePage user={user} posts={posts} />} />
+        
+        <Route path="/" element={<Home user={user} posts={posts} setPosts={setPosts}/>} />
         <Route
           path="/create"
           element={
@@ -63,23 +60,10 @@ const App = () => {
           element={<BlogFullview allPosts={posts} />}
         />
       </Routes>
+      <Footer />
     </Router>
   );
 };
 
 export default App;
 
-const FullHomePage = ({ user, posts }) => {
-  return (
-    <>
-      <NavBar user={user} />
-      <Home />
-      <Politics posts={posts[0]} />
-      <Movies posts={posts[1]} />
-      <Cultural posts={posts[2]} />
-      <Economics posts={posts[3]} />
-      <Cricket posts={posts[4]} />
-      <Footer />
-    </>
-  );
-};

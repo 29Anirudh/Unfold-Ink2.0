@@ -1,12 +1,21 @@
 import ListItems from "../components/ListItems";
-const Politics=({posts})=>{
-    return(
-        <>
-        <div className="w-screen min-h-screen bg-white pt-20 p-16" id="Politics">
-            <p className="text-3xl font-bold">Politics</p>
-            <ListItems posts={posts}/>
-        </div>
-        </>
-    )
-}
+const Politics = ({ posts }) => {
+  return (
+    <>
+      <div className="w-screen min-h-screen bg-white pt-20 p-16" id="Politics">
+        <p className="text-3xl font-bold">Politics</p>
+        {posts.length ? (
+          <ListItems posts={posts} />
+        ) : (
+          <div className="flex flex-col justify-center items-center min-h-screen">
+            <p className="text-4xl font-semibold">
+              No Posts Found Under this category.
+            </p>
+            <p className="text-lg text-gray-500">Checkout our other posts.</p>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
 export default Politics;
