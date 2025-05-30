@@ -21,7 +21,7 @@ const CreateBlogPage = () => {
   const [errors, setErrors] = useState({});
   const contentRef = useRef(null);
   const fileInputRef = useRef(null);
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
   // Formatting commands
   const handleFormatting = (command) => {
     document.execCommand(command, false, null);

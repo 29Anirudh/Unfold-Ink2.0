@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const FeaturedStories = () => {
   const [stories, setStories] = useState([]);
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
   useEffect(() => {
     const fetchFeaturedStories = async () => {
       try {

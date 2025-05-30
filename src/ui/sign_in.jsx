@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const SignInPage = ({ setUser }) => {
   const nav = useNavigate();
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

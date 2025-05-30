@@ -9,7 +9,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
   const [bio, setBio] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
   const nav = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");

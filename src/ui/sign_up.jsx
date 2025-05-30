@@ -3,7 +3,7 @@ import Left from "./Left";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = ({setUser}) => {
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL;
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullname: "",
