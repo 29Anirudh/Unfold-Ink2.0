@@ -2,6 +2,7 @@ import { Link } from "react-scroll";
 import { useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 
+
 const NavBar = ({ user }) => {
   const navigate = useNavigate();
   return (

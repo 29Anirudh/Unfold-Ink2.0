@@ -9,6 +9,8 @@ import Home from "./ui/Home";
 import Footer from "./ui/Footer";
 import CreateBlogPage from "./ui/CreateBlogPage";
 import BlogFullview from "./ui/BlogFullView";
+import AboutUs from "./ui/AboutUs";
+import ScrollToTop from "./ui/ScrollToTop";
 
 const App = () => {
   const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
@@ -37,6 +39,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <NavBar user={user} />
       <Routes>
         
@@ -59,6 +62,8 @@ const App = () => {
           path="/blog/:postId"
           element={<BlogFullview allPosts={posts} />}
         />
+        <Route path="/about" element={<AboutUs />} />
+        
       </Routes>
       <Footer />
     </Router>
