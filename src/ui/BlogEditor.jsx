@@ -22,19 +22,14 @@ const CreateBlogPage = () => {
   const contentRef = useRef(null);
   const fileInputRef = useRef(null);
 
-  // Formatting commands
   const handleFormatting = (command) => {
     document.execCommand(command, false, null);
-    // After execCommand, update content state to keep latest content if needed
-    // But we won't update on every input to fix cursor issue
   };
 
-  // Alignment commands
   const handleAlignment = (align) => {
     document.execCommand("justify" + align);
   };
 
-  // Drag and drop image handler
   const handleImageDrop = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
@@ -47,12 +42,10 @@ const CreateBlogPage = () => {
     }
   };
 
-  // Open file dialog when clicking drag-drop area
   const handleDragDropClick = () => {
     fileInputRef.current?.click();
   };
 
-  // Handle file input change for image upload
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
@@ -64,13 +57,11 @@ const CreateBlogPage = () => {
     }
   };
 
-  // Remove selected image
   const handleRemoveImage = () => {
     setImage(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Validate form fields
   const validate = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "Title is required.";
@@ -81,11 +72,9 @@ const CreateBlogPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Submit handler
   const handleSubmit = (status) => {
     if (!validate()) return;
 
-    // Get content from editor if in edit mode
     let currentContent = content;
     if (!previewMode && contentRef.current) {
       currentContent = contentRef.current.innerHTML.trim();
@@ -101,7 +90,6 @@ const CreateBlogPage = () => {
     };
     console.log("Blog Submitted:", blogData);
 
-    // Show success popup and reset form
     setSubmitted(true);
     setTitle("");
     setCategory("");
@@ -111,124 +99,88 @@ const CreateBlogPage = () => {
     setErrors({});
     if (fileInputRef.current) fileInputRef.current.value = "";
 
-    // Clear contentEditable div manually (since uncontrolled now)
     if (contentRef.current) contentRef.current.innerHTML = "";
 
-    // Reset preview mode to edit mode after submit
     setPreviewMode(false);
 
-    // Hide popup after 3 seconds
     setTimeout(() => setSubmitted(false), 3000);
   };
 
-  // Sync contentEditable innerHTML only when switching back to edit mode
   useEffect(() => {
     if (!previewMode && contentRef.current) {
       contentRef.current.innerHTML = content;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewMode]);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar for formatting */}
-      <div className="w-[15%] border-r p-6 space-y-10 bg-white text-2xl text-gray-700 flex flex-col">
-        <div className="space-y-3">
-          <div className="font-semibold text-sm text-gray-600 tracking-wide">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
+      {/* Responsive Toolbar: Sidebar on md+, top horizontal bar on small */}
+      <div className="bg-white border-b md:border-b-0 md:border-r p-4 md:p-6 flex md:flex-col items-center md:items-start overflow-x-auto md:overflow-visible whitespace-nowrap md:whitespace-normal">
+        {/* Text Formatting */}
+        <div className="flex md:flex-col items-center md:items-start space-x-3 md:space-x-0 md:space-y-6 mr-6 md:mr-0">
+          <span className="hidden md:block font-semibold text-sm text-gray-600 tracking-wide mb-2">
             TEXT FORMATTING
-          </div>
-          <div className="flex space-x-3 text-gray-600">
+          </span>
+          {[["Bold", FaBold, "bold"],
+            ["Italic", FaItalic, "italic"],
+            ["Underline", FaUnderline, "underline"],
+            ["Strikethrough", FaStrikethrough, "strikeThrough"]
+          ].map(([label, Icon, cmd]) => (
             <button
+              key={cmd}
               type="button"
-              aria-label="Bold"
-              onClick={() => handleFormatting("bold")}
-              className="hover:text-violet-600"
+              aria-label={label}
+              onClick={() => handleFormatting(cmd)}
+              className="text-gray-600 hover:text-violet-600 text-xl p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500"
             >
-              <FaBold />
+              <Icon />
             </button>
-            <button
-              type="button"
-              aria-label="Italic"
-              onClick={() => handleFormatting("italic")}
-              className="hover:text-violet-600"
-            >
-              <FaItalic />
-            </button>
-            <button
-              type="button"
-              aria-label="Underline"
-              onClick={() => handleFormatting("underline")}
-              className="hover:text-violet-600"
-            >
-              <FaUnderline />
-            </button>
-            <button
-              type="button"
-              aria-label="Strikethrough"
-              onClick={() => handleFormatting("strikeThrough")}
-              className="hover:text-violet-600"
-            >
-              <FaStrikethrough />
-            </button>
-          </div>
+          ))}
         </div>
 
-        <div className="space-y-3">
-          <div className="font-semibold text-sm text-gray-600 tracking-wide">
+        {/* Alignment */}
+        <div className="flex md:flex-col items-center md:items-start space-x-3 md:space-x-0 md:space-y-6 ml-6 md:ml-0">
+          <span className="hidden md:block font-semibold text-sm text-gray-600 tracking-wide mb-2">
             ALIGNMENT
-          </div>
-          <div className="flex space-x-3 text-gray-600">
+          </span>
+          {[["Align Left", FaAlignLeft, "Left"],
+            ["Align Center", FaAlignCenter, "Center"],
+            ["Align Right", FaAlignRight, "Right"],
+            ["Justify", FaAlignJustify, "Full"]
+          ].map(([label, Icon, align]) => (
             <button
+              key={align}
               type="button"
-              aria-label="Align Left"
-              onClick={() => handleAlignment("Left")}
-              className="hover:text-violet-600"
+              aria-label={label}
+              onClick={() => handleAlignment(align)}
+              className="text-gray-600 hover:text-violet-600 text-xl p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500"
             >
-              <FaAlignLeft />
+              <Icon />
             </button>
-            <button
-              type="button"
-              aria-label="Align Center"
-              onClick={() => handleAlignment("Center")}
-              className="hover:text-violet-600"
-            >
-              <FaAlignCenter />
-            </button>
-            <button
-              type="button"
-              aria-label="Align Right"
-              onClick={() => handleAlignment("Right")}
-              className="hover:text-violet-600"
-            >
-              <FaAlignRight />
-            </button>
-            <button
-              type="button"
-              aria-label="Justify"
-              onClick={() => handleAlignment("Full")}
-              className="hover:text-violet-600"
-            >
-              <FaAlignJustify />
-            </button>
-          </div>
+          ))}
         </div>
 
-        <div className="pt-6">
-          <label className="flex items-center text-sm text-gray-600 space-x-2">
-            <input
-              type="checkbox"
-              checked={previewMode}
-              onChange={() => setPreviewMode(!previewMode)}
-              className="form-checkbox text-violet-600"
-            />
-            <span>{previewMode ? "Preview Mode" : "Edit Mode"}</span>
+        {/* Preview toggle */}
+        <div className="ml-auto md:ml-0 md:mt-6 flex items-center space-x-2">
+          <input
+            id="preview-toggle"
+            type="checkbox"
+            checked={previewMode}
+            onChange={() => setPreviewMode(!previewMode)}
+            className="form-checkbox text-violet-600"
+          />
+          <label
+            htmlFor="preview-toggle"
+            className="text-sm text-gray-600 select-none cursor-pointer"
+          >
+            {previewMode ? "Preview Mode" : "Edit Mode"}
           </label>
         </div>
       </div>
 
       {/* Main Form */}
-      <div className="w-[85%] p-8 max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900">
+      <div className="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
+        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 text-center md:text-left">
           Create New Blog
         </h1>
 
@@ -238,7 +190,7 @@ const CreateBlogPage = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter your blog title..."
-          className={`w-full border px-5 py-3 mb-2 rounded-md text-lg focus:outline-none focus:ring-2 ${
+          className={`w-full border px-4 py-3 mb-2 rounded-md text-lg focus:outline-none focus:ring-2 ${
             errors.title
               ? "border-red-500 focus:ring-red-500"
               : "border-gray-300 focus:ring-violet-500"
@@ -247,11 +199,7 @@ const CreateBlogPage = () => {
           aria-describedby="title-error"
         />
         {errors.title && (
-          <p
-            className="text-red-600 text-sm mb-3"
-            id="title-error"
-            role="alert"
-          >
+          <p className="text-red-600 text-sm mb-3" id="title-error" role="alert">
             {errors.title}
           </p>
         )}
@@ -260,7 +208,7 @@ const CreateBlogPage = () => {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className={`w-full border px-5 py-3 mb-2 rounded-md text-lg bg-white focus:outline-none focus:ring-2 ${
+          className={`w-full border px-4 py-3 mb-2 rounded-md text-lg bg-white focus:outline-none focus:ring-2 ${
             errors.category
               ? "border-red-500 focus:ring-red-500"
               : "border-gray-300 focus:ring-violet-500"
@@ -291,7 +239,7 @@ const CreateBlogPage = () => {
           value={tags}
           onChange={(e) => setTags(e.target.value)}
           placeholder="Add tags (comma-separated)..."
-          className={`w-full border px-5 py-3 mb-2 rounded-md text-lg focus:outline-none focus:ring-2 ${
+          className={`w-full border px-4 py-3 mb-2 rounded-md text-lg focus:outline-none focus:ring-2 ${
             errors.tags
               ? "border-red-500 focus:ring-red-500"
               : "border-gray-300 focus:ring-violet-500"
@@ -300,122 +248,97 @@ const CreateBlogPage = () => {
           aria-describedby="tags-error"
         />
         {errors.tags && (
-          <p
-            className="text-red-600 text-sm mb-3"
-            id="tags-error"
-            role="alert"
-          >
+          <p className="text-red-600 text-sm mb-3" id="tags-error" role="alert">
             {errors.tags}
           </p>
         )}
 
-        {/* Blog content editor or preview */}
-        {!previewMode ? (
+        {/* Content Editor or Preview */}
+        {previewMode ? (
           <div
-            ref={contentRef}
-            contentEditable
-            suppressContentEditableWarning={true}
-            onBlur={(e) => setContent(e.currentTarget.innerHTML)}
-            className={`border p-5 min-h-[250px] rounded-md bg-white text-lg mb-3 overflow-auto focus:outline-none focus:ring-2 ${
-              errors.content
-                ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:ring-violet-500"
-            }`}
-            spellCheck={true}
-            aria-label="Blog content editor"
+            className="border border-gray-300 p-4 rounded min-h-[200px] mb-6 bg-white text-gray-900 max-w-full overflow-auto"
+            dangerouslySetInnerHTML={{ __html: content }}
           />
         ) : (
           <div
-            className="border p-5 min-h-[250px] rounded-md bg-gray-100 mb-3 overflow-auto prose max-w-full"
-            dangerouslySetInnerHTML={{ __html: content }}
-            aria-label="Blog content preview"
+            ref={contentRef}
+            contentEditable
+            role="textbox"
+            aria-multiline="true"
+            placeholder="Write your blog content here..."
+            className={`border border-gray-300 rounded min-h-[200px] mb-6 p-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 max-w-full overflow-auto`}
+            onInput={(e) => setContent(e.currentTarget.innerHTML)}
+            spellCheck={true}
           />
         )}
         {errors.content && (
-          <p
-            className="text-red-600 text-sm mb-3"
-            role="alert"
-            aria-live="assertive"
-          >
+          <p className="text-red-600 text-sm mb-3" role="alert">
             {errors.content}
           </p>
         )}
 
-        {/* Drag & Drop Image upload */}
+        {/* Image Upload & Preview */}
         <div
           onDrop={handleImageDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={handleDragDropClick}
-          className="w-full border-2 border-dashed border-gray-400 rounded-md p-10 text-center cursor-pointer text-gray-600 hover:border-violet-500 transition"
-          role="button"
-          tabIndex={0}
-          onKeyPress={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              handleDragDropClick();
-            }
-          }}
-          aria-label="Drag and drop image upload area, click to select file"
+          className="cursor-pointer border border-dashed border-gray-400 rounded p-4 mb-6 flex flex-col items-center justify-center text-gray-500 hover:text-violet-600 transition max-w-full mx-auto"
+          style={{ minHeight: "180px" }}
         >
-          {image ? (
-            <div className="relative inline-block">
+          {!image ? (
+            <>
+              <p className="mb-1 font-semibold">Drag & Drop or Click to Upload Image</p>
+              <p className="text-xs">Supports JPG, PNG, GIF</p>
+            </>
+          ) : (
+            <div className="relative w-full max-w-xs mx-auto">
               <img
                 src={image}
                 alt="Uploaded preview"
-                className="max-h-60 mx-auto rounded-md"
+                className="object-contain rounded max-h-60 mx-auto"
               />
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRemoveImage();
-                }}
-                className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 py-1 text-xs hover:bg-red-700 transition"
+                type="button"
+                onClick={handleRemoveImage}
+                className="absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold focus:outline-none focus:ring-2 focus:ring-red-500"
                 aria-label="Remove uploaded image"
               >
-                Delete
+                &times;
               </button>
             </div>
-          ) : (
-            <p className="select-none">
-              Drag & drop an image here, or click to select from device
-            </p>
           )}
           <input
             type="file"
-            accept="image/*"
             ref={fileInputRef}
-            onChange={handleFileChange}
+            accept="image/*"
             className="hidden"
-            aria-hidden="true"
+            onChange={handleFileChange}
           />
         </div>
 
-        {/* Buttons */}
-        <div className="mt-6 space-x-4">
-          <button
-            type="button"
-            onClick={() => handleSubmit("draft")}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-3 rounded-md transition"
-          >
-            Save as Draft
-          </button>
+        {/* Submit Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <button
             type="button"
             onClick={() => handleSubmit("published")}
-            className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 py-3 rounded-md transition"
+            className="bg-violet-600 hover:bg-violet-700 text-white py-3 px-6 rounded-md text-lg font-semibold transition w-full sm:w-auto"
           >
             Publish
           </button>
+          <button
+            type="button"
+            onClick={() => handleSubmit("draft")}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-3 px-6 rounded-md text-lg font-semibold transition w-full sm:w-auto"
+          >
+            Save Draft
+          </button>
         </div>
 
-        {/* Success popup */}
+        {/* Success Message */}
         {submitted && (
-          <div
-            className="fixed bottom-5 right-5 bg-green-600 text-white px-6 py-3 rounded-md shadow-lg animate-fadeIn"
-            role="alert"
-            aria-live="polite"
-          >
+          <p className="mt-6 text-center text-green-600 font-medium">
             Blog submitted successfully!
-          </div>
+          </p>
         )}
       </div>
     </div>
