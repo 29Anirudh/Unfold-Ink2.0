@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import NavBar from "./ui/NavBar";
 import Home from "./ui/Home";
+
 import Footer from "./ui/Footer";
 import CreateBlogPage from "./ui/CreateBlogPage";
 import BlogFullview from "./ui/BlogFullView";
@@ -39,7 +40,6 @@ const App = () => {
     <Router>
       <NavBar user={user} />
       <Routes>
-        
         <Route path="/" element={<Home user={user} posts={posts} setPosts={setPosts}/>} />
         <Route
           path="/create"

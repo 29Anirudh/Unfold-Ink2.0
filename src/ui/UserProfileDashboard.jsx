@@ -87,7 +87,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
   if (!user) return <p className="text-center mt-10">Loading user...</p>;
 
   return (
-    <div className="p-6 max-w-7xl mx-auto relative">
+    <div className="p-6 max-w-7xl mx-auto relative pt-16">
       {isEditing && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-8 rounded-xl w-full max-w-md">

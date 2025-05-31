@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-ul li a {
+/* ul li a {
   position: relative;
   color: gray;
-  padding: 0 2px;
   transition: all 0.3s ease;
 }
 
@@ -27,4 +26,4 @@ ul li a.active::after {
 
 ul li a.active {
   color: black;
-}
+} */

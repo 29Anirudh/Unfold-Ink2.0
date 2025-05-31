@@ -16,9 +16,9 @@ const Card = ({ post }) => {
           />
         </div>
         <div className="p-6 py-3 flex flex-col">
-          <p className="text-xl font-bold pt-3">{post.title}</p>
+          <p className="text-xl font-bold pt-3 line-clamp-1">{post.title}</p>
           <div
-            className="prose max-w-none line-clamp-3"
+            className="prose max-w-none line-clamp-3 text-gray-600 text-sm"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
           <div className="pt-4 flex flex-row justify-between items-center text-gray-500">

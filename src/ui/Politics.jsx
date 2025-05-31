@@ -7,7 +7,7 @@ const Politics = ({ posts }) => {
         {posts.length ? (
           <ListItems posts={posts} />
         ) : (
-          <div className="flex flex-col justify-center items-center min-h-screen">
+          <div className="flex flex-col justify-center items-center">
             <p className="text-4xl font-semibold">
               No Posts Found Under this category.
             </p>

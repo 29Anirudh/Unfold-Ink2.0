@@ -6,10 +6,12 @@ import Cultural from "./Cultural";
 import Economics from "./Economics";
 import Cricket from "./Cricket";
 import { useNavigate } from "react-router-dom";
+
 const Home = ({ posts }) => {
   const [search, setSearch] = useState("");
   const [filteredPosts, setFilteredPosts] = useState(posts);
-  const nav=useNavigate();
+  const nav = useNavigate();
+
   useEffect(() => {
     setFilteredPosts(posts);
   }, [posts]);
@@ -41,7 +43,7 @@ const Home = ({ posts }) => {
   };
 
   return (
-    <div className="pt-20" id="Home">
+    <div className="pt-20 min-h-screen" id="Home">
       <div className="flex items-center justify-between px-8 py-20 max-w-[1300px] mx-auto gap-16">
         <div className="flex flex-col gap-4 max-w-xl">
           <input
@@ -57,7 +59,10 @@ const Home = ({ posts }) => {
             Share your ideas, stories, and creativity with the world.
           </p>
 
-          <button className="bg-violet-500 rounded-full text-white px-6 py-3 mt-4 font-medium hover:shadow-lg hover:shadow-violet-400/50 hover:scale-105 transition-all duration-300" onClick={()=>nav('/create')}>
+          <button
+            className="bg-violet-500 rounded-full text-white px-6 py-3 mt-4 font-medium hover:shadow-lg hover:shadow-violet-400/50 hover:scale-105 transition-all duration-300"
+            onClick={() => nav("/create")}
+          >
             Start Writing
           </button>
         </div>
