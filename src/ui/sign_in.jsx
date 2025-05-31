@@ -44,7 +44,7 @@ const SignInPage = ({ setUser }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full">
+    <div className="flex flex-col md:flex-row h-screen w-full pt-20">
       {/* Left Section */}
       <Left />
 

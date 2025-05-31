@@ -8,7 +8,7 @@ import NavBar from "./ui/NavBar";
 import Home from "./ui/Home";
 
 import Footer from "./ui/Footer";
-import CreateBlogPage from "./ui/CreateBlogPage";
+import CreateBlogPage from "./ui/BlogEditor";
 import BlogFullview from "./ui/BlogFullView";
 
 const App = () => {

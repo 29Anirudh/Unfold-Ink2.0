@@ -1,15 +1,40 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function BlogFullview({ allPosts }) {
   const { postId } = useParams();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Simulate async loading for demonstration; 
+    // you can remove the timeout if your allPosts is always ready
+    const timer = setTimeout(() => setLoading(false), 300); 
+
+    return () => clearTimeout(timer);
   }, [postId]);
 
   const flattenedPosts = allPosts.flat();
   const post = flattenedPosts.find((p) => p._id === postId);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+        <style>{`
+          .loader {
+            border-top-color: #6366f1; /* violet-600 */
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   if (!post) {
     return (

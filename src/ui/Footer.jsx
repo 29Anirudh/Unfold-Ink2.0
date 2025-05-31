@@ -22,9 +22,9 @@ const Footer = () => {
 
         <div>
           <h3 className="text-lg font-semibold text-white mb-2">Categories</h3>
-          <ul className="space-y-2 text-sm flex flex-col items-center">
+          <ul className="space-y-2 text-sm flex flex-col">
             {sections.map((section) => (
-              <li key={section} className="cursor-pointer">
+              <li key={section} className="cursor-pointer hover:underline">
                 <Link
                   to={section}
                   spy={true}

@@ -3,24 +3,33 @@ import { useNavigate, Link } from "react-router-dom";
 
 const UserProfileDashboard = ({ user, setUser }) => {
   const [blogs, setBlogs] = useState([]);
+  const [loadingBlogs, setLoadingBlogs] = useState(true); // New loading state for blogs
   const [isEditing, setIsEditing] = useState(false);
   const [fullName, setFullName] = useState("");
   const [bio, setBio] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const BASE_URL =
-    process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
+    process.env.REACT_APP_BACKEND_BASEURL ||
+    "https://unfold-ink-backend.vercel.app";
   const nav = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (user && token) {
+      setLoadingBlogs(true); // start loading
       fetch(`${BASE_URL}/api/blogs/mine`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
-        .then((data) => setBlogs(data))
-        .catch((err) => console.error("Error loading user's blogs", err));
+        .then((data) => {
+          setBlogs(data);
+          setLoadingBlogs(false); // done loading
+        })
+        .catch((err) => {
+          console.error("Error loading user's blogs", err);
+          setLoadingBlogs(false); // done loading even on error
+        });
     }
   }, [user]);
 
@@ -71,6 +80,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
     }
   };
 
+
   if (!user) return <p className="text-center mt-20">Loading user...</p>;
 
   return (
@@ -100,7 +110,13 @@ const UserProfileDashboard = ({ user, setUser }) => {
             </label>
             <label className="block mb-4">
               <span className="text-sm">Profile Picture</span>
-              <input type="file" accept="image/*" onChange={handlePhotoChange} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files?.[0]) setPhotoFile(e.target.files[0]);
+                }}
+              />
             </label>
             <div className="flex justify-end gap-3">
               <button
@@ -184,47 +200,68 @@ const UserProfileDashboard = ({ user, setUser }) => {
       </div>
 
       {/* Blogs Section */}
-      <div className="mt-10">
-        <h3 className="text-xl font-bold">
+      <div className="mt-10 border-2 rounded-lg p-5">
+        <h3 className="text-3xl font-bold">
           My Blogs <span className="text-violet-600">({blogs.length})</span>
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-          {blogs.map((blog) => (
-            <Link
-              to={`/blog/${blog._id}`}
-              key={blog._id}
-              className="bg-white rounded-xl shadow hover:shadow-lg transition-all hover:scale-[1.02] overflow-hidden"
-            >
-              <img
-                src={blog.featuredImage}
-                alt={blog.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <span className="text-xs bg-violet-100 text-violet-600 px-2 py-1 rounded-full">
-                  {blog.category}
-                </span>
-                <p className="text-xs text-gray-500 mt-1">
-                  {new Date(blog.updatedAt).toLocaleDateString()}
-                </p>
-                <h4 className="text-base font-semibold mt-2 line-clamp-2">
-                  {blog.title}
-                </h4>
-                <div className="flex justify-end mt-3">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleDelete(blog._id);
-                    }}
-                    className="text-sm text-red-600 hover:underline"
-                  >
-                    <i className="fa-solid fa-trash"></i> Delete
-                  </button>
+
+        {loadingBlogs ? (
+          // Loader spinner
+          <div className="flex justify-center items-center min-h-[200px]">
+            <div className="w-12 h-12 border-4 border-violet-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : blogs.length ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            {blogs.map((blog) => (
+              <Link
+                to={`/blog/${blog._id}`}
+                key={blog._id}
+                className="bg-white rounded-xl shadow hover:shadow-lg transition-all hover:scale-[1.02] overflow-hidden"
+              >
+                <img
+                  src={blog.featuredImage}
+                  alt={blog.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <span className="text-xs bg-violet-100 text-violet-600 px-2 py-1 rounded-full">
+                    {blog.category}
+                  </span>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {new Date(blog.updatedAt).toLocaleDateString()}
+                  </p>
+                  <h4 className="text-base font-semibold mt-2 line-clamp-2">
+                    {blog.title}
+                  </h4>
+                  <div className="flex justify-end mt-3">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDelete(blog._id);
+                      }}
+                      className="text-sm text-red-600 hover:underline"
+                    >
+                      <i className="fa-solid fa-trash">Delete</i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            <p className="text-2xl font-semibold">No personal blogs</p>
+            <p className="text-lg text-gray-700">
+              It's time to create a blog.{" "}
+              <span
+                className="text-violet-600 hover:underline hover:text-black hover:cursor-pointer"
+                onClick={() => nav("/create")}
+              >
+                Click here
+              </span>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
