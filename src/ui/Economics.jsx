@@ -2,6 +2,7 @@ import ListItems from "../components/ListItems";
 const Economics = ({ posts }) => {
   return (
     <>
+    <section id="economics" className="py-20 bg-white">
       <div className="w-screen min-h-screen bg-white pt-20 p-16" id="Economics">
         <p className="text-3xl font-bold">Economics</p>
         {posts.length ? (
@@ -15,7 +16,9 @@ const Economics = ({ posts }) => {
           </div>
         )}
       </div>
+      </section>
     </>
+    
   );
 };
 export default Economics;

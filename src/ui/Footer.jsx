@@ -13,17 +13,17 @@ const Footer = () => {
 
         {/* Categories */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Categories</h3>
-          <ul className="space-y-1 text-sm">
-            <li>Politics</li>
-            <li>Movies</li>
-            <li>Cultural</li>
-            <li>Economics</li>
-            <li>Cricket</li>
-            <li>Technology</li>
-            <li>Science</li>
-          </ul>
-        </div>
+  <h3 className="text-lg font-semibold text-white mb-2">Categories</h3>
+  <ul className="space-y-2 text-sm flex flex-col items-center">
+    <li><a href="#home" className="hover:underline text-white">Home</a></li>
+    <li><a href="#politics" className="hover:underline text-white">Politics</a></li>
+    <li><a href="#economics" className="hover:underline text-white">Economics</a></li>
+    <li><a href="#cultural" className="hover:underline text-white">Cultural</a></li>
+    <li><a href="#movies" className="hover:underline text-white">Movies</a></li>
+    <li><a href="#cricket" className="hover:underline text-white">Cricket</a></li>
+  </ul>
+</div>
+
 
         {/* Company */}
         <div>

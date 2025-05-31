@@ -87,6 +87,7 @@ const Home = ({ posts }) => {
       <Cricket posts={filteredPosts[4]} />
     </div>
   );
+  
 };
 
 export default Home;
