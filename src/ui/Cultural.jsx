@@ -2,6 +2,7 @@ import ListItems from "../components/ListItems";
 const Cultural=({posts})=>{
     return(
         <>
+        <section id="cultural" className="py-20 bg-white">
         <div className="w-screen min-h-screen bg-white pt-20 p-16" id="Cultural">
             <p className="text-3xl font-bold">Cultural</p>
             {posts.length ? (
@@ -13,6 +14,7 @@ const Cultural=({posts})=>{
           </div>
         )}
         </div>
+        </section>
         </>
     )
 }

@@ -41,6 +41,7 @@ const Home = ({ posts }) => {
   };
 
   return (
+    <section id="home" className="py-20 bg-white">
     <div className="pt-20" id="Home">
       <div className="flex items-center justify-between px-8 py-20 max-w-[1300px] mx-auto gap-16">
         <div className="flex flex-col gap-4 max-w-xl">
@@ -81,7 +82,9 @@ const Home = ({ posts }) => {
       <Economics posts={filteredPosts[3]} />
       <Cricket posts={filteredPosts[4]} />
     </div>
+    </section>
   );
+  
 };
 
 export default Home;
