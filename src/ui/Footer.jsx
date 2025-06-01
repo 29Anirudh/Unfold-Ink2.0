@@ -1,4 +1,5 @@
 import { Link } from "react-scroll";
+import { useNavigate } from "react-router-dom";
 const sections = [
   "Home",
   "Politics",
@@ -8,6 +9,7 @@ const sections = [
   "Cricket",
 ];
 const Footer = () => {
+  const nav=useNavigate();
   return (
     <footer className="bg-gray-900 text-gray-300 py-10 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -43,7 +45,7 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold text-white mb-2">Company</h3>
           <ul className="space-y-1 text-sm">
-            <li>About Us</li>
+            <li className="hover:underline cursor-pointer" onClick={()=>nav('/AboutUs')}>About Us</li>
             <li>Careers</li>
             <li>Privacy Policy</li>
             <li>Terms of Service</li>

@@ -62,7 +62,7 @@ const App = () => {
           path="/blog/:postId"
           element={<BlogFullview allPosts={posts} />}
         />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
         
       </Routes>
       <Footer />
