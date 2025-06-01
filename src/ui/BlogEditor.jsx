@@ -113,7 +113,7 @@ const CreateBlogPage = () => {
   }, [previewMode]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row p-10 pt-20">
       {/* Responsive Toolbar: Sidebar on md+, top horizontal bar on small */}
       <div className="bg-white border-b md:border-b-0 md:border-r p-4 md:p-6 flex md:flex-col items-center md:items-start overflow-x-auto md:overflow-visible whitespace-nowrap md:whitespace-normal">
         {/* Text Formatting */}

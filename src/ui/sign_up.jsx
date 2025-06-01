@@ -89,7 +89,7 @@ const SignUp = ({ setUser }) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full h-full min-h-screen">
+    <div className="flex flex-col lg:flex-row w-full h-full min-h-screen pt-20">
       {/* Left component hidden on small & medium screens */}
       <div className="hidden lg:block lg:w-3/5">
         <Left />

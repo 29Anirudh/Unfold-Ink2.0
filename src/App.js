@@ -8,7 +8,7 @@ import NavBar from "./ui/NavBar";
 import Home from "./ui/Home";
 
 import Footer from "./ui/Footer";
-import CreateBlogPage from "./ui/CreateBlogPage";
+import CreateBlogPage from "./ui/BlogEditor";
 import BlogFullview from "./ui/BlogFullView";
 import AboutUs from "./ui/AboutUs";
 import ScrollToTop from "./ui/ScrollToTop";

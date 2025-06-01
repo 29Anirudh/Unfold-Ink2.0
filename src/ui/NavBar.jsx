@@ -70,6 +70,7 @@ const NavBar = ({ user }) => {
                     ? "text-black font-semibold border-b-2 border-blue-600"
                     : ""
                 }`}
+                onClick={()=>navigate('/')}
               >
                 {section}
               </Link>
@@ -87,9 +88,9 @@ const NavBar = ({ user }) => {
           </button>
           {user ? (
             <img
-              src={user.photo || "profile.png"}
+              src={user.photo || "/profile.png"}
               alt={user.name}
-              className="h-8 aspect-square rounded-full cursor-pointer hover:scale-105 hover:shadow-md transition-all"
+              className="h-8 w-8 object-cover rounded-full cursor-pointer hover:scale-105 hover:shadow-md transition-all"
               onClick={() => navigate("/profile")}
             />
           ) : (
