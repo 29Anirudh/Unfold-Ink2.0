@@ -42,7 +42,7 @@ const FeaturedStories = () => {
                   {story.category}
                 </span>
 
-                <h3 className="text-lg text-gray-900 font-semibold leading-snug">
+                <h3 className="text-lg text-gray-900 font-semibold leading-snug line-clamp-1">
                   {story.title}
                 </h3>
 
