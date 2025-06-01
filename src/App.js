@@ -6,11 +6,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import NavBar from "./ui/NavBar";
 import Home from "./ui/Home";
-
 import Footer from "./ui/Footer";
 import CreateBlogPage from "./ui/BlogEditor";
 import BlogFullview from "./ui/BlogFullView";
 import AboutUs from "./ui/AboutUs";
+import ContactUs from "./ui/ContactUs";  // <-- Import ContactUs component
 import ScrollToTop from "./ui/ScrollToTop";
 
 const App = () => {
@@ -43,7 +43,7 @@ const App = () => {
       <ScrollToTop />
       <NavBar user={user} />
       <Routes>
-        <Route path="/" element={<Home user={user} posts={posts} setPosts={setPosts}/>} />
+        <Route path="/" element={<Home user={user} posts={posts} setPosts={setPosts} />} />
         <Route
           path="/create"
           element={
@@ -52,18 +52,15 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/profile"
-          element={<UserProfileDashboard user={user} setUser={setUser} />}
-        />
+        <Route path="/profile" element={<UserProfileDashboard user={user} setUser={setUser} />} />
         <Route path="/signin" element={<SignInPage setUser={setUser} />} />
         <Route path="/signup" element={<SignUp setUser={setUser} />} />
-        <Route
-          path="/blog/:postId"
-          element={<BlogFullview allPosts={posts} />}
-        />
+        <Route path="/blog/:postId" element={<BlogFullview allPosts={posts} />} />
+
         <Route path="/AboutUs" element={<AboutUs />} />
-        
+        <Route path="/contact-us" element={<ContactUs />} /> 
+        <Route path="/contact" element={<ContactUs />} />{/* ContactUs route */}
+
       </Routes>
       <Footer />
     </Router>
@@ -71,4 +68,3 @@ const App = () => {
 };
 
 export default App;
-

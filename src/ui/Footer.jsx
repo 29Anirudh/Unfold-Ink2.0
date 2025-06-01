@@ -1,5 +1,6 @@
-import { Link } from "react-scroll";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { scroller } from "react-scroll";
+
 const sections = [
   "Home",
   "Politics",
@@ -8,8 +9,30 @@ const sections = [
   "Economics",
   "Cricket",
 ];
+
 const Footer = () => {
-  const nav=useNavigate();
+  const nav = useNavigate();
+  const location = useLocation();
+
+  const handleCategoryClick = (section) => {
+    if (location.pathname !== "/") {
+      nav("/");
+      setTimeout(() => {
+        scroller.scrollTo(section, {
+          duration: 500,
+          smooth: true,
+          offset: -70,
+        });
+      }, 200);
+    } else {
+      scroller.scrollTo(section, {
+        duration: 500,
+        smooth: true,
+        offset: -70,
+      });
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-gray-300 py-10 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -22,20 +45,17 @@ const Footer = () => {
           </p>
         </div>
 
+        {/* Categories */}
         <div>
           <h3 className="text-lg font-semibold text-white mb-2">Categories</h3>
           <ul className="space-y-2 text-sm flex flex-col">
             {sections.map((section) => (
-              <li key={section} className="cursor-pointer hover:underline">
-                <Link
-                  to={section}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  offset={-70} // Adjust based on navbar height
-                >
-                  {section}
-                </Link>
+              <li
+                key={section}
+                className="cursor-pointer hover:underline"
+                onClick={() => handleCategoryClick(section)}
+              >
+                {section}
               </li>
             ))}
           </ul>
@@ -45,26 +65,31 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold text-white mb-2">Company</h3>
           <ul className="space-y-1 text-sm">
-            <li className="hover:underline cursor-pointer" onClick={()=>nav('/AboutUs')}>About Us</li>
-            <li>Careers</li>
-            <li>Privacy Policy</li>
-            <li>Terms of Service</li>
-            <li>Contact Us</li>
+            <li
+              className="hover:underline cursor-pointer"
+              onClick={() => nav("/AboutUs")}
+            >
+              About Us
+            </li>
+            <li
+              className="hover:underline cursor-pointer"
+              onClick={() => nav("/contact")}
+            >
+              Contact Us
+            </li>
           </ul>
         </div>
 
         {/* Contact Info */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-2">
-            Get in Touch
-          </h3>
+          <h3 className="text-lg font-semibold text-white mb-2">Get in Touch</h3>
           <p className="text-sm">
-            123 Media Street,
+            Seetharampalya, Bangalore,
             <br />
-            New York, NY 10001
+            Karnataka, 560048
           </p>
-          <p className="mt-2 text-sm"> contact@unfoldink.com</p>
-          <p className="text-sm"> +1 (555) 123-4567</p>
+          <p className="mt-2 text-sm">Support@ugyan.in</p>
+          <p className="text-sm">+91 79751 65470</p>
         </div>
       </div>
 
