@@ -72,12 +72,19 @@ const UserProfileDashboard = ({ user, setUser }) => {
       const data = await res.json();
       setUser(data.user);
       localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("user", JSON.stringify(data.user));
       setIsEditing(false);
     } catch (err) {
       alert(err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSignOut = () => {
+    setUser(null);
+    localStorage.clear();
+    navigate("/signin"); // Update this path if needed
   };
 
 
@@ -138,10 +145,9 @@ const UserProfileDashboard = ({ user, setUser }) => {
         </div>
       )}
 
-      {/* Back Button */}
       <div
-        onClick={() => nav("/")}
-        className="text-blue-600 hover:text-violet-600 hover:underline absolute right-6 top-6 text-sm sm:text-base cursor-pointer"
+        className="absolute text-xl font-semibold right-10 text-sky-600 hover:underline hover:text-violet-600 cursor-pointer"
+        onClick={() => navigate("/")}
       >
         Back to Home
       </div>
@@ -157,6 +163,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
           <h2 className="text-xl font-semibold mt-3">{user.fullName}</h2>
           <p className="text-sm text-gray-500 mt-1">
             Joined {user.joined ? new Date(user.joined).toLocaleDateString() : "N/A"}
+            Joined {user.joined ? new Date(user.joined).toLocaleDateString() : "N/A"}
           </p>
           <button
             onClick={() => {
@@ -167,6 +174,12 @@ const UserProfileDashboard = ({ user, setUser }) => {
             className="mt-4 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded"
           >
             Edit Profile
+          </button>
+          <button
+            onClick={handleSignOut}
+            className="w-full mt-2 bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+          >
+            Sign Out
           </button>
         </div>
 
