@@ -84,9 +84,9 @@ const UserProfileDashboard = ({ user, setUser }) => {
   const handleSignOut = () => {
     setUser(null);
     localStorage.clear();
-    navigate("/signin"); // Update this path if needed
+    nav("/"); // Update this path if needed
+    window.alert("Signed Out Successfully.");
   };
-
 
   if (!user) return <p className="text-center mt-20">Loading user...</p>;
 
@@ -94,7 +94,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
     <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
       {/* Edit Modal */}
       {isEditing && (
-        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 px-4 pt-20">
+        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 px-4 pt-14">
           <div className="bg-white w-full max-w-md rounded-xl p-6 sm:p-8 shadow-lg">
             <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
             <label className="block mb-3">
@@ -147,23 +147,23 @@ const UserProfileDashboard = ({ user, setUser }) => {
 
       <div
         className="absolute text-xl font-semibold right-10 text-sky-600 hover:underline hover:text-violet-600 cursor-pointer"
-        onClick={() => navigate("/")}
+        onClick={() => nav("/")}
       >
         Back to Home
       </div>
 
       {/* Profile Info */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-6 rounded-2xl shadow-md pt-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-6 rounded-2xl shadow-md pt-14">
         <div className="flex flex-col items-center text-center bg-violet-50 p-6 rounded-xl">
           <img
-            src={user.photo || "/profile.png"}
+            src={user.photo || "/profile.jpg"}
             alt="Profile"
             className="w-24 h-24 rounded-full object-cover"
           />
           <h2 className="text-xl font-semibold mt-3">{user.fullName}</h2>
           <p className="text-sm text-gray-500 mt-1">
-            Joined {user.joined ? new Date(user.joined).toLocaleDateString() : "N/A"}
-            Joined {user.joined ? new Date(user.joined).toLocaleDateString() : "N/A"}
+            Joined{" "}
+            {user.joined ? new Date(user.joined).toLocaleDateString() : "N/A"}
           </p>
           <button
             onClick={() => {
@@ -177,7 +177,7 @@ const UserProfileDashboard = ({ user, setUser }) => {
           </button>
           <button
             onClick={handleSignOut}
-            className="w-full mt-2 bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+            className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
           >
             Sign Out
           </button>
@@ -186,7 +186,9 @@ const UserProfileDashboard = ({ user, setUser }) => {
         <div className="md:col-span-2 space-y-4">
           <div>
             <h3 className="text-lg font-semibold">About Me</h3>
-            <p className="text-gray-600 mt-1">{user.bio || "No bio available."}</p>
+            <p className="text-gray-600 mt-1">
+              {user.bio || "No bio available."}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

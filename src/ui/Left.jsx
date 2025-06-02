@@ -2,9 +2,9 @@ import React from "react";
 
 const Left = () => {
   return (
-    <div className="hidden md:block relative w-1/2 h-full overflow-hidden">
+    <div className="hidden md:block relative h-full overflow-hidden">
       <img
-        src="maybe1.jpg"
+        src="loginup.jpg"
         alt="Background"
         className="absolute top-0 left-0 w-full h-full object-cover"
       />

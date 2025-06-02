@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 const SignInPage = ({ setUser }) => {
   const nav = useNavigate();
   const BASE_URL =
-    process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
+    process.env.REACT_APP_BACKEND_BASEURL ||
+    "https://unfold-ink-backend.vercel.app";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,9 +45,10 @@ const SignInPage = ({ setUser }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full pt-20">
-      {/* Left Section */}
-      <Left />
+    <div className="flex flex-col md:flex-row h-screen w-full pt-14">
+      <div className="hidden lg:block lg:w-3/5">
+        <Left />
+      </div>
 
       {/* Right Section (Form) */}
       <div className="w-full md:w-1/2 bg-gray-100 flex justify-center items-center p-4">
@@ -55,7 +57,9 @@ const SignInPage = ({ setUser }) => {
           className="bg-white p-6 sm:p-8 rounded-xl shadow-md w-full max-w-md"
         >
           <h2 className="text-2xl font-semibold mb-2">Welcome Back</h2>
-          <p className="text-gray-600 mb-6">Sign in to continue to Unfold Ink</p>
+          <p className="text-gray-600 mb-6">
+            Sign in to continue to Unfold Ink
+          </p>
 
           {/* Email */}
           <label htmlFor="email" className="block mb-1 font-medium">

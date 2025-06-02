@@ -8,9 +8,9 @@ function BlogFullview({ allPosts }) {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // Simulate async loading for demonstration; 
+    // Simulate async loading for demonstration;
     // you can remove the timeout if your allPosts is always ready
-    const timer = setTimeout(() => setLoading(false), 300); 
+    const timer = setTimeout(() => setLoading(false), 300);
 
     return () => clearTimeout(timer);
   }, [postId]);
@@ -40,7 +40,9 @@ function BlogFullview({ allPosts }) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="max-w-xl text-center py-20">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Blog post not found</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+            Blog post not found
+          </h2>
           <p className="text-gray-600 mb-6 text-base sm:text-lg">
             No post found with ID: <span className="font-mono">{postId}</span>
           </p>
@@ -71,12 +73,14 @@ function BlogFullview({ allPosts }) {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div className="flex items-center gap-4">
               <img
-                src={author.photo || "/profile.png"}
+                src={author.photo || "/profile.jpg"}
                 alt={author.fullName}
                 className="w-12 h-12 rounded-full object-cover"
               />
               <div>
-                <p className="font-medium text-gray-900 text-base sm:text-lg">{author.fullName}</p>
+                <p className="font-medium text-gray-900 text-base sm:text-lg">
+                  {author.fullName}
+                </p>
                 <p className="text-sm sm:text-base text-gray-600">
                   {new Date(post.createdAt).toDateString()}
                 </p>

@@ -5,8 +5,10 @@ const Politics = ({ posts }) => {
 
   return (
     <section id="Politics" className="bg-white">
-      <div className="w-full min-h-screen bg-white px-4 pt-20 sm:px-8 md:px-12 lg:px-16 py-10">
-        <p className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6">Politics</p>
+      <div className="w-full min-h-screen bg-white px-4 pt-14 sm:px-8 md:px-12 lg:px-16 py-10">
+        <p className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6">
+          Politics
+        </p>
 
         {loading ? (
           <div className="flex justify-center items-center min-h-[60vh]">
@@ -19,6 +21,5 @@ const Politics = ({ posts }) => {
     </section>
   );
 };
-
 
 export default Politics;

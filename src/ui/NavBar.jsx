@@ -111,7 +111,7 @@ const NavBar = ({ user }) => {
           {sections.map((section) => (
             <li key={section}>
               {/* About Us and Contact Us are route links */}
-              {(section === "About Us" || section === "Contact Us") ? (
+              {section === "About Us" || section === "Contact Us" ? (
                 <Link
                   to={section === "Contact Us" ? "/contact" : "/AboutUs"}
                   className={`cursor-pointer ${
@@ -126,7 +126,7 @@ const NavBar = ({ user }) => {
               ) : (
                 // Scroll links
                 <button
-                  className={`cursor-pointer bg-transparent border-none ${
+                  className={`cursor-pointer bg-transparent ${
                     activeSection === section
                       ? "text-black font-semibold border-b-2 border-blue-600"
                       : "text-gray-600"
@@ -150,7 +150,7 @@ const NavBar = ({ user }) => {
           </button>
           {user ? (
             <img
-              src={user.photo || "/profile.png"}
+              src={user.photo || "/profile.jpg"}
               alt={user.name}
               className="h-8 w-8 object-cover rounded-full cursor-pointer hover:scale-105 hover:shadow-md transition-all"
               onClick={() => navigate("/profile")}
@@ -178,11 +178,13 @@ const NavBar = ({ user }) => {
           <ul className="flex flex-col gap-2 text-lg text-gray-700">
             {sections.map((section) => (
               <li key={section}>
-                {(section === "About Us" || section === "Contact Us") ? (
+                {section === "About Us" || section === "Contact Us" ? (
                   <Link
                     to={section === "Contact Us" ? "/contact" : "/AboutUs"}
                     className={`block ${
-                      activeSection === section ? "text-black font-semibold" : ""
+                      activeSection === section
+                        ? "text-black font-semibold"
+                        : ""
                     }`}
                     onClick={() => handleNavClick(section)}
                   >
@@ -191,7 +193,9 @@ const NavBar = ({ user }) => {
                 ) : (
                   <button
                     className={`block bg-transparent border-none text-left w-full ${
-                      activeSection === section ? "text-black font-semibold" : "text-gray-700"
+                      activeSection === section
+                        ? "text-black font-semibold"
+                        : "text-gray-700"
                     }`}
                     onClick={() => handleNavClick(section)}
                   >
@@ -221,7 +225,7 @@ const NavBar = ({ user }) => {
               }}
             >
               <img
-                src={user.photo || "/profile.png"}
+                src={user.photo || "/profile.jpg"}
                 alt={user.name}
                 className="h-8 aspect-square rounded-full"
               />

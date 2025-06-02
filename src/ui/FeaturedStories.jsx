@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 const FeaturedStories = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASEURL || "https://unfold-ink-backend.vercel.app";
+  const BASE_URL =
+    process.env.REACT_APP_BACKEND_BASEURL ||
+    "https://unfold-ink-backend.vercel.app";
 
   useEffect(() => {
     const fetchFeaturedStories = async () => {
@@ -56,7 +58,7 @@ const FeaturedStories = () => {
 
                   <div className="flex items-center gap-3 mt-auto">
                     <img
-                      src={story.profile_pic || "/profile.png"}
+                      src={story.profile_pic || "/profile.jpg"}
                       alt={story.author}
                       className="rounded-full w-8 h-8 object-cover"
                     />

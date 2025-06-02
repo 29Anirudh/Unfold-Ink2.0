@@ -43,7 +43,7 @@ const Home = ({ posts }) => {
   };
 
   return (
-    <div className="pt-20 min-h-screen" id="Home">
+    <div className="pt-14 min-h-screen" id="Home">
       <div className="flex items-center justify-between px-8 py-20 max-w-[1300px] mx-auto gap-16">
         <div className="flex flex-col gap-4 max-w-xl">
           <input
@@ -87,7 +87,6 @@ const Home = ({ posts }) => {
       <Cricket posts={filteredPosts[4]} />
     </div>
   );
-  
 };
 
 export default Home;

@@ -89,14 +89,14 @@ const SignUp = ({ setUser }) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full h-full min-h-screen pt-20">
+    <div className="flex flex-col lg:flex-row w-full h-full min-h-screen pt-14">
       {/* Left component hidden on small & medium screens */}
       <div className="hidden lg:block lg:w-3/5">
         <Left />
       </div>
 
       {/* Form section takes full width on small & medium, 2/5 width on large */}
-      <div className="w-full lg:w-2/5 bg-gray-100 flex justify-center items-center p-4 sm:p-8">
+      <div className="w-full lg:w-2/5 bg-gray-100 flex justify-center items-center sm:p-8">
         <form
           className="bg-white p-6 sm:p-8 rounded-xl shadow-md w-full max-w-md"
           onSubmit={handleSubmit}

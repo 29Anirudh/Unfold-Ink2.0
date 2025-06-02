@@ -113,7 +113,7 @@ const CreateBlogPage = () => {
   }, [previewMode]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row p-10 pt-20">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row p-10 pt-14">
       {/* Responsive Toolbar: Sidebar on md+, top horizontal bar on small */}
       <div className="bg-white border-b md:border-b-0 md:border-r p-4 md:p-6 flex md:flex-col items-center md:items-start overflow-x-auto md:overflow-visible whitespace-nowrap md:whitespace-normal">
         {/* Text Formatting */}
@@ -121,10 +121,11 @@ const CreateBlogPage = () => {
           <span className="hidden md:block font-semibold text-sm text-gray-600 tracking-wide mb-2">
             TEXT FORMATTING
           </span>
-          {[["Bold", FaBold, "bold"],
+          {[
+            ["Bold", FaBold, "bold"],
             ["Italic", FaItalic, "italic"],
             ["Underline", FaUnderline, "underline"],
-            ["Strikethrough", FaStrikethrough, "strikeThrough"]
+            ["Strikethrough", FaStrikethrough, "strikeThrough"],
           ].map(([label, Icon, cmd]) => (
             <button
               key={cmd}
@@ -143,10 +144,11 @@ const CreateBlogPage = () => {
           <span className="hidden md:block font-semibold text-sm text-gray-600 tracking-wide mb-2">
             ALIGNMENT
           </span>
-          {[["Align Left", FaAlignLeft, "Left"],
+          {[
+            ["Align Left", FaAlignLeft, "Left"],
             ["Align Center", FaAlignCenter, "Center"],
             ["Align Right", FaAlignRight, "Right"],
-            ["Justify", FaAlignJustify, "Full"]
+            ["Justify", FaAlignJustify, "Full"],
           ].map(([label, Icon, align]) => (
             <button
               key={align}
@@ -199,7 +201,11 @@ const CreateBlogPage = () => {
           aria-describedby="title-error"
         />
         {errors.title && (
-          <p className="text-red-600 text-sm mb-3" id="title-error" role="alert">
+          <p
+            className="text-red-600 text-sm mb-3"
+            id="title-error"
+            role="alert"
+          >
             {errors.title}
           </p>
         )}
@@ -287,7 +293,9 @@ const CreateBlogPage = () => {
         >
           {!image ? (
             <>
-              <p className="mb-1 font-semibold">Drag & Drop or Click to Upload Image</p>
+              <p className="mb-1 font-semibold">
+                Drag & Drop or Click to Upload Image
+              </p>
               <p className="text-xs">Supports JPG, PNG, GIF</p>
             </>
           ) : (
