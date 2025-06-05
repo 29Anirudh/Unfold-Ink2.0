@@ -1,22 +1,94 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { GoUpload } from "react-icons/go";
 
 function BlogFullview({ allPosts }) {
+  const BASE_URL =
+    process.env.REACT_APP_BACKEND_BASEURL ||
+    "https://unfold-ink-backend.vercel.app";
   const { postId } = useParams();
   const [loading, setLoading] = useState(true);
+  const [commentError, setCommentError] = useState("");
+  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState([]);
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // Simulate async loading for demonstration;
-    // you can remove the timeout if your allPosts is always ready
     const timer = setTimeout(() => setLoading(false), 300);
-
     return () => clearTimeout(timer);
   }, [postId]);
 
   const flattenedPosts = allPosts.flat();
   const post = flattenedPosts.find((p) => p._id === postId);
+  console.log(post);
+  useEffect(() => {
+    if (post) {
+      setComments(post.comments || []);
+    }
+  }, [post]);
+
+  const addComment = async (blogId, commentText, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/blogs/${blogId}/comment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text: commentText }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+
+      return data.comment;
+    } catch (err) {
+      console.error("Failed to add comment:", err.message);
+      throw err;
+    }
+  };
+
+  const handleCommentSubmit = async () => {
+    if (commentText.trim() === "") {
+      setCommentError("Nothing to comment");
+      return;
+    }
+
+    try {
+      const newComment = await addComment(postId, commentText, token);
+      setComments((prev) => [...prev, newComment]);
+      setCommentText("");
+      setCommentError("");
+    } catch (err) {
+      alert("Error posting comment: " + err.message);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/api/blogs/${postId}/comments/${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+
+      setComments((prev) => prev.filter((c) => c._id !== commentId));
+    } catch (err) {
+      alert("Failed to delete comment: " + err.message);
+    }
+  };
+
+  const currentUserId = token
+    ? JSON.parse(atob(token.split(".")[1])).userId
+    : null;
 
   if (loading) {
     return (
@@ -24,7 +96,7 @@ function BlogFullview({ allPosts }) {
         <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
         <style>{`
           .loader {
-            border-top-color: #6366f1; /* violet-600 */
+            border-top-color: #6366f1;
             animation: spin 1s linear infinite;
           }
           @keyframes spin {
@@ -86,26 +158,6 @@ function BlogFullview({ allPosts }) {
                 </p>
               </div>
             </div>
-
-            <div className="flex items-center gap-4 text-sm sm:text-base">
-              <span className="text-gray-500">
-                {new Date(post.createdAt).toLocaleDateString()}
-              </span>
-              {post.rating && (
-                <div className="flex items-center text-yellow-400">
-                  <svg
-                    className="w-5 h-5 fill-current"
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.39 2.462a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118L10 13.347l-3.39 2.462c-.785.57-1.84-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L3.603 9.394c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69l1.286-3.967z" />
-                  </svg>
-                  <span className="ml-1 text-gray-600">
-                    {post.rating} ({post.ratingCount || 0} ratings)
-                  </span>
-                </div>
-              )}
-            </div>
           </div>
         </header>
 
@@ -126,8 +178,65 @@ function BlogFullview({ allPosts }) {
 
         <section>
           <h2 className="text-2xl font-semibold mb-6">Comments</h2>
-          {/* Comments UI can be added here */}
-          <p className="text-gray-600 text-base sm:text-lg">No comments yet.</p>
+
+          <label
+            htmlFor="add-a-comment"
+            className="text-black text-lg mb-2 block"
+          >
+            Add a Comment
+          </label>
+          <div className="w-full flex items-center border rounded overflow-hidden mb-2">
+            <input
+              id="add-a-comment"
+              type="text"
+              placeholder="Type here..."
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              className="flex-grow p-2 outline-none"
+            />
+            <button
+              type="submit"
+              className="p-2 hover:bg-gray-200 transition-colors duration-200"
+              aria-label="Upload comment"
+              onClick={handleCommentSubmit}
+            >
+              <GoUpload size={20} color="gray" />
+            </button>
+          </div>
+          {commentError && (
+            <div className="w-full text-red-500 pl-2">{commentError}</div>
+          )}
+
+          {comments.length === 0 ? (
+            <p className="text-gray-600 text-base sm:text-lg mt-4">
+              No comments yet.
+            </p>
+          ) : (
+            <ul className="mt-4 space-y-4">
+              {comments.map((comment) => (
+                <li
+                  key={comment._id}
+                  className="border p-3 rounded bg-gray-50 flex justify-between items-start"
+                >
+                  <div>
+                    <p className="font-semibold text-sm">{comment.username}</p>
+                    <p className="text-gray-700 py-2">{comment.text}</p>
+                    <p className="text-xs text-gray-400">
+                      {new Date(comment.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                  {comment.userId?.toString() === currentUserId && (
+                    <button
+                      onClick={() => handleDeleteComment(comment._id)}
+                      className="text-red-500 text-sm hover:underline ml-4"
+                    >
+                      <i> Delete</i>
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </main>
     </div>
